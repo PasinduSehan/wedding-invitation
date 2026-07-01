@@ -1,0 +1,123 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Cinzel:wght@400;500;600&family=Montserrat:wght@200;300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Playfair Display", Georgia, serif;
+  --font-sans: "Montserrat", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  --font-display: "Cinzel", serif;
+}
+
+/* Custom Luxury Transitions & Keyframes */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes luxuryPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(217, 119, 6, 0.15);
+    transform: scale(1);
+    border-color: rgba(217, 119, 6, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 22px 8px rgba(217, 119, 6, 0.3);
+    transform: scale(1.03);
+    border-color: rgba(217, 119, 6, 0.9);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(217, 119, 6, 0);
+    transform: scale(1);
+    border-color: rgba(217, 119, 6, 0.5);
+  }
+}
+
+.audio-pulse-delay-100 {
+  animation-delay: 0.1s;
+}
+
+.audio-pulse-delay-200 {
+  animation-delay: 0.2s;
+}
+
+.audio-pulse-delay-300 {
+  animation-delay: 0.3s;
+}
+
+.audio-pulse-delay-500 {
+  animation-delay: 0.5s;
+}
+
+.animate-fade-in {
+  animation: fadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-slide-in {
+  animation: slideIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-luxury-pulse {
+  animation: luxuryPulse 2.2s infinite ease-in-out;
+}
+
+/* Smooth HTML scroll and customized elegant luxury scrollbar */
+html {
+  scroll-behavior: smooth;
+  font-family: var(--font-sans);
+}
+
+body {
+  background-color: #faf9f6;
+  color: #1c1917;
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f5f5f4;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d6d3d1;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a29e;
+}
+
+/* Print styles override for beautiful physical checklists */
+@media print {
+  body {
+    background-color: white !important;
+    color: black !important;
+  }
+  header, footer, #luxury-music-player, #scroll-down-btn, .no-print {
+    display: none !important;
+  }
+  .print-card {
+    border: 1px solid #e5e5e0 !important;
+    box-shadow: none !important;
+    page-break-inside: avoid;
+  }
+}

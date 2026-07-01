@@ -1,0 +1,56 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Global Safety Net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return isSignedIn() && request.auth.token.email == 'admin@wedding.com';
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isValidInvitation(data) {
+      return data.familyName is string && data.familyName.size() > 0 && data.familyName.size() <= 100
+        && (data.phone == null || (data.phone is string && data.phone.size() <= 50))
+        && (data.email == null || (data.email is string && data.email.size() <= 150))
+        && data.token is string && data.token.size() > 0 && data.token.size() <= 50
+        && data.maxGuests is int && data.maxGuests >= 0 && data.maxGuests <= 50
+        && data.status is string && (data.status == "Pending" || data.status == "Coming" || data.status == "Not Coming")
+        && data.guestCount is int && data.guestCount >= 0 && data.guestCount <= 50
+        && (data.submittedAt == null || (data.submittedAt is string && data.submittedAt.size() <= 100))
+        && (data.notes == null || (data.notes is string && data.notes.size() <= 2000));
+    }
+
+    function isValidGuest(data) {
+      return data.invitationId is string && data.invitationId.size() > 0 && data.invitationId.size() <= 100
+        && data.guestName is string && data.guestName.size() > 0 && data.guestName.size() <= 150
+        && (data.dietaryPreference == null || (data.dietaryPreference is string && data.dietaryPreference.size() <= 300));
+    }
+
+    match /invitations/{invitationId} {
+      allow read, write: if true;
+    }
+
+    match /guests/{guestId} {
+      allow read, write: if true;
+    }
+  }
+}

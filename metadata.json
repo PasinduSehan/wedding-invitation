@@ -1,0 +1,6 @@
+{
+  "name": "Wedding Invitation & RSVP",
+  "description": "A premium, production-ready luxury wedding invitation and RSVP management application featuring custom security tokens, guest management, and an elegant admin dashboard.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

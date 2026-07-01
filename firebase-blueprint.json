@@ -1,0 +1,43 @@
+{
+  "entities": {
+    "Invitation": {
+      "title": "Invitation",
+      "description": "A wedding invitation entry with a family name, contact info, unique token, and RSVP details.",
+      "type": "object",
+      "properties": {
+        "familyName": { "type": "string" },
+        "phone": { "type": "string" },
+        "email": { "type": "string" },
+        "token": { "type": "string" },
+        "maxGuests": { "type": "integer" },
+        "status": { "type": "string", "enum": ["Pending", "Coming", "Not Coming"] },
+        "guestCount": { "type": "integer" },
+        "submittedAt": { "type": "string" },
+        "notes": { "type": "string" }
+      },
+      "required": ["familyName", "token", "maxGuests", "status", "guestCount"]
+    },
+    "Guest": {
+      "title": "Guest",
+      "description": "An individual attending guest associated with an invitation.",
+      "type": "object",
+      "properties": {
+        "invitationId": { "type": "string" },
+        "guestName": { "type": "string" },
+        "dietaryPreference": { "type": "string" },
+        "dietaryRequirements": { "type": "string" }
+      },
+      "required": ["invitationId", "guestName"]
+    }
+  },
+  "firestore": {
+    "invitations/{invitationId}": {
+      "schema": "Invitation",
+      "description": "Collection of wedding invitations."
+    },
+    "guests/{guestId}": {
+      "schema": "Guest",
+      "description": "Collection of individual guests."
+    }
+  }
+}
